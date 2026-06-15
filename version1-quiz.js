@@ -31,7 +31,7 @@ function welcomeComponent() {
 function debug(string) { // easy way to toggle whether or not i want to have debugging in my code.
     if (debugToggle) {
         console.log(
-            `\x1b[1mDEBUG: ${string}\x1b[0m`,
+            `\x1b[2mDEBUG: ${string}\x1b[0m`,
         );
     }
 }
@@ -65,47 +65,50 @@ const quizObj = { // ai generated quiz object
     // ]
 };
 
-function main(playerName) {
-    const topics = Object.keys(quizObj);
+function main(playerName = "Player") {
+    // Show available topics
+    // let topicList = "";
+    // for (let topic in quizObj) {
+    //     topicList += topic + ", ";
+    // }
+    // console.log(`Available topics: ${topicList.slice(0, -2)}`);
 
-    const displayName = playerName || "Player";
+    // Topic Selection
+    let chosenTopic = "math";
+    // while (!quizObj[chosenTopic]) {
+    //     let input = prompt(`Which topic do you want to play, ${playerName}?`).trim().toLowerCase();
+        
+    //     for (let topic in quizObj) {
+    //         if (topic.toLowerCase() === input) {
+    //             chosenTopic = topic;
+    //         }
+    //     }
+    // }
+    debug(`chosenTopic = ${chosenTopic}`);
 
-    console.log(`Available topics: ${topics.join(', ')}`);
-
-    let chosenTopic = "";
-    while (!quizObj[chosenTopic]) {
-        // 1. Clean the input: lowercase it, trim it, and remove ALL spaces
-        let input = prompt(`Which topic do you want to play ${displayName}? : `).toLowerCase().trim().replace(/\s+/g, '');
-
-        // 2. Look through the quizObj keys to find a match ignoring case
-        chosenTopic = topics.find(key => key.toLowerCase() === input);
-    }
-    debug(`chosenTopic= ${chosenTopic}`)
-
-    // GAMEPLAY LOGIC
-    console.log(`\nStarting the ${chosenTopic} quiz! Good luck ${displayName}!`);
-
-    const selectedQuestions = shuffleArray(quizObj[chosenTopic]);
+    // Game Setup
+    console.log(`\nStarting the ${chosenTopic} quiz! Good luck ${playerName}!`);
+    const questions = shuffleArray(quizObj[chosenTopic]);
     let score = 0;
 
-    selectedQuestions.forEach((item, index) => {
+    // Gameplay Loop
+    questions.forEach((item, index) => {
         console.log(`\nQuestion ${index + 1}: ${item.question}`);
-
-        let userAnswer = "";
-        while (!userAnswer.trim()) {
-            userAnswer = prompt("Your answer : ").trim();
+        
+        let answer = "";
+        while (!answer) {
+            answer = prompt("Your answer: ").trim();
         }
 
-        if (userAnswer.toLowerCase() === item.answer.toLowerCase()) {
+        if (answer.toLowerCase() === item.answer.toLowerCase()) {
             console.log('Correct! +1 Point');
             score++;
         } else {
             console.log(`Incorrect. The correct answer was: ${item.answer}`);
         }
-    })
+    });
 
-    console.log(`You scored ${score}/${selectedQuestions.length}`)
-    //
+    console.log(`You scored ${score}/${questions.length}`);
     return true;
 }
 
