@@ -127,7 +127,7 @@ while (playing) {
 
     if (repeat === "n") {
         playing = false;
-        // Uses "Player" if name is null
+        // uses "Player" if name is null
         console.log(`Thanks for playing ${name || "Player"}!`);
     }
 }
