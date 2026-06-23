@@ -43,8 +43,18 @@ function cleanValue(value) {
 }
 
 function convertFraction(numerator, denominator) {
+  // helper function that converts fractions based on the parameters it's given.
   let percent = (numerator / denominator) * 100;
   return percent;
+}
+
+function gradeScore(percent) {
+  // helper function that converts percentages into grades.
+  if (percent >= 80)
+    return "E - You are exceptional, your hard work has paid off, you attained an E.";
+  if (percent >= 65) return "M - Well done you achieved an M in this quiz.";
+  if (percent >= 50) return "A - Good work you attained an A grade.";
+  return "N - You need to study more.";
 }
 
 // components
@@ -54,7 +64,7 @@ function welcomeComponent() {
   if (welcomeToggle) {
     console.log(
       "For context, L&P (Lemon & Paeroa) is a sweet, lemon-flavoured soft drink manufactured by Coca-Cola NZ that has become an iconic piece of New Zealand culture, famously advertised as `World Famous` in New Zealand." +
-        "\nWelcome to the L & P quiz! Start by answering the following questions."
+        "\nWelcome to the L & P quiz! Start by answering the following questions.",
     );
 
     let name = "";
@@ -190,11 +200,13 @@ debugPrint(`userAnswers = { name : ${name}, dataSaving: ${dataSaving} }`);
 
 while (true) {
   const score = quizComponent(quizQuestions);
+  const percent = convertFraction(score, quizQuestions.length);
 
   console.log(
     `\nThanks for playing ${name || "null"}. Your final score was ${score}/${
       quizQuestions.length
-    }, or ${convertFraction(score, quizQuestions.length)}%.`
+    }, or ${percent}%.
+    \nGrade: ${gradeScore(percent)}`,
   );
 
   let userChoice = "";
@@ -206,7 +218,7 @@ while (true) {
 
   if (userChoice == "n") {
     console.log(
-      `Goodbye ${name || "Player"}. Thanks for playing the L&P quiz.`
+      `Goodbye ${name || "Player"}. Thanks for playing the L&P quiz.`,
     );
     break;
   }
