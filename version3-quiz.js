@@ -52,7 +52,7 @@ function gradeScore(percent) {
   // helper function that converts percentages into grades.
   if (percent >= 80)
     return "E - You are exceptional, your hard work has paid off, you attained an E.";
-  if (percent >= 65) return "M - Well done you achieved an M in this quiz.";
+  if (percent >= 60) return "M - Well done you achieved an M in this quiz.";
   if (percent >= 50) return "A - Good work you attained an A grade.";
   return "N - You need to study more.";
 }
@@ -71,12 +71,13 @@ function welcomeComponent() {
     while (!name.trim()) {
       name = prompt("What is your name? : ");
     }
+    name = name.trim();
     debugPrint(`name == ${name}`);
 
     console.log(`Hello ${name}!`);
 
     let dataSaving = "n"; // defaulted at "n" so it is never empty if the while loop is skipped.
-    let dataAskToggle = false;
+    let dataAskToggle = true;
     if (dataAskToggle) {
       dataSaving = "";
       while (
@@ -93,7 +94,7 @@ function welcomeComponent() {
 
     return {
       // returns multiple values
-      name: name.trim(),
+      name: name,
       dataSaving: cleanValue(dataSaving), // cleans value from "y" > true, making it easier to recognise the value and use.
     };
   }
