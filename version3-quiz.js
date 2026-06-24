@@ -1,16 +1,20 @@
-// Kade Wood
-// Quiz System
-// Version 3
-// 23/06/2026
+/*Kade Wood
+  Quiz System
+  Version 3
+  23/06/2026
 
-// FIRE THE SCRIPT THROUGH TERMINAL WITH > node SCRIPT_NAME.js
-// in order to run the script you need to have node.js installed.
+  FIRE THE SCRIPT THROUGH TERMINAL WITH > node SCRIPT_NAME.js
+  in order to run the script you need to have node.js installed. 
+
+  With feedback that I was given, I made changes to my code. 
+  E.g. Miss Owen's asked for a grading system (percentages and grades) and extra context to the quiz.
+*/
 
 // services/dependancies
 const prompt = require("prompt-sync")();
 
 // helpers
-const debugToggle = true;
+const debugToggle = false;
 function debugPrint(string) {
   // easy way to toggle whether or not i want to have debugging in my code.
   if (!debugToggle) return;
@@ -58,6 +62,8 @@ function gradeScore(percent) {
 }
 
 // components
+const welcomeMessages = ["Welcome", "Greetings", "Yo", "Hello", "Wassup"];
+
 const welcomeToggle = true;
 function welcomeComponent() {
   // welcomeComponent that introduces the player and returns values (name, dataSaving)
@@ -74,7 +80,9 @@ function welcomeComponent() {
     name = name.trim();
     debugPrint(`name == ${name}`);
 
-    console.log(`Hello ${name}!`);
+    console.log(
+      `${welcomeMessages[Math.floor(Math.random() * welcomeMessages.length)]} ${name}!`,
+    );
 
     let dataSaving = "n"; // defaulted at "n" so it is never empty if the while loop is skipped.
     let dataAskToggle = true;
@@ -132,9 +140,9 @@ function quizComponent(questions) {
 
     if (userAnswer == current.answer) {
       score++;
-      console.log(`Correct! Score is now ${score}.`);
+      console.log(`Correct! Score is now ${score}.\n`);
     } else {
-      console.log(`Incorrect. Correct answer was ${current.answer}.`);
+      console.log(`Incorrect. Correct answer was ${current.answer}.\n`);
     }
   }
 
@@ -204,10 +212,7 @@ while (true) {
   const percent = convertFraction(score, quizQuestions.length);
 
   console.log(
-    `\nThanks for playing ${name || "null"}. Your final score was ${score}/${
-      quizQuestions.length
-    }, or ${percent}%.
-    \nGrade: ${gradeScore(percent)}`,
+    `Thanks for playing ${name || "null"}. Your final score was ${score}/${quizQuestions.length}, percent: ${percent}%, grade: ${gradeScore(percent)}`,
   );
 
   let userChoice = "";
