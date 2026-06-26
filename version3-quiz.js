@@ -11,7 +11,7 @@
   E.g. Miss Owen's asked for a grading system (percentages and grades) and extra context to the quiz.
 */
 
-// services/dependancies
+// services/dependencies
 const prompt = require("prompt-sync")();
 
 // helpers
@@ -41,7 +41,7 @@ function shuffleArray(array) {
 }
 
 function cleanValue(value) {
-  // a function I made that takes a value and changes it to a correct value, so from "y" > true.
+  // function that changes values
   let cleanedValue = value.trim().toLowerCase();
   if (cleanedValue == "y") return true;
   if (cleanedValue == "n") return false;
@@ -103,7 +103,6 @@ function welcomeComponent() {
     debugPrint(`dataSaving == ${dataSaving}`);
 
     return {
-      // returns multiple values
       name: name,
       dataSaving: cleanValue(dataSaving), // cleans value from "y" > true, making it easier to recognise the value and use.
     };
@@ -116,7 +115,7 @@ function welcomeComponent() {
 
 function quizComponent(questions) {
   let score = 0; // base score value
-  const activeQuestions = shuffleArray(questions); // uses our helper function from eariler to shuffle our question array
+  const activeQuestions = shuffleArray(questions); // uses our helper function from earlier to shuffle our question array
 
   console.log(`\n\x1b[1mQUIZ BEGINS NOW!\x1b[0m`); // another use of bold console.log text.
 
@@ -211,7 +210,7 @@ debugPrint(`userAnswers = { name : ${name}, dataSaving: ${dataSaving} }`);
 
 while (true) {
   const score = quizComponent(quizQuestions); // returns a score value from the quizComponent
-  const percent = convertFraction(score, quizQuestions.length); // returns a percent from our helper function eariler
+  const percent = convertFraction(score, quizQuestions.length); // returns a percent from our helper function earlier
 
   console.log(
     `Thanks for playing ${name || "null"}. Your final score was ${score}/${quizQuestions.length}, percent: ${percent}%, grade: "${gradeScore(percent)}"`,
@@ -219,7 +218,6 @@ while (true) {
 
   let userChoice = "";
   while (userChoice !== "y" && userChoice !== "n") {
-    // while loop to ask if the user would like to play again.
     userChoice = prompt("Would you like to play again? (y/n) : ")
       .trim()
       .toLowerCase();
