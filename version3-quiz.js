@@ -1,4 +1,5 @@
-/*Kade Wood
+/*
+  Kade Wood
   Quiz System
   Version 3
   23/06/2026
@@ -62,30 +63,31 @@ function gradeScore(percent) {
 }
 
 // components
-const welcomeMessages = ["Welcome", "Greetings", "Yo", "Hello", "Wassup"];
+const welcomeMessages = ["Welcome", "Greetings", "Yo", "Hello", "Wassup"]; // table of greetings, later randomised and chosen for `${greeting} ${name}!`
 
-const welcomeToggle = true;
+const welcomeToggle = true; // toggles the welcomeComponent, if not toggled returns null for name, and false for dataSaving
 function welcomeComponent() {
   // welcomeComponent that introduces the player and returns values (name, dataSaving)
   if (welcomeToggle) {
     console.log(
       "For context, L&P (Lemon & Paeroa) is a sweet, lemon-flavoured soft drink manufactured by Coca-Cola NZ that has become an iconic piece of New Zealand culture, famously advertised as `World Famous` in New Zealand." +
         "\nWelcome to the L & P quiz! Start by answering the following questions.",
-    );
+    ); // intro dialogue
 
     let name = "";
     while (!name.trim()) {
+      // while loop to gather user's name
       name = prompt("What is your name? : ");
     }
-    name = name.trim();
+    name = name.trim(); // trims name from "Kade " to "Kade"
     debugPrint(`name == ${name}`);
 
     console.log(
-      `${welcomeMessages[Math.floor(Math.random() * welcomeMessages.length)]} ${name}!`,
-    );
+      `${welcomeMessages[Math.floor(Math.random() * welcomeMessages.length)]} ${name}!\n`,
+    ); // e.g. `Welcome User`
 
     let dataSaving = "n"; // defaulted at "n" so it is never empty if the while loop is skipped.
-    let dataAskToggle = true;
+    let dataAskToggle = true; // toggles asking for dataSaving, if not returns false
     if (dataAskToggle) {
       dataSaving = "";
       while (
@@ -113,10 +115,10 @@ function welcomeComponent() {
 }
 
 function quizComponent(questions) {
-  let score = 0;
-  const activeQuestions = shuffleArray(questions);
+  let score = 0; // base score value
+  const activeQuestions = shuffleArray(questions); // uses our helper function from eariler to shuffle our question array
 
-  console.log(`\x1b[1mQUIZ BEGINS NOW!\x1b[0m`); // another use of bold console.log text.
+  console.log(`\n\x1b[1mQUIZ BEGINS NOW!\x1b[0m`); // another use of bold console.log text.
 
   for (let i = 0; i < activeQuestions.length; i++) {
     const current = activeQuestions[i];
@@ -208,15 +210,16 @@ const dataSaving = component.dataSaving;*/
 debugPrint(`userAnswers = { name : ${name}, dataSaving: ${dataSaving} }`);
 
 while (true) {
-  const score = quizComponent(quizQuestions);
-  const percent = convertFraction(score, quizQuestions.length);
+  const score = quizComponent(quizQuestions); // returns a score value from the quizComponent
+  const percent = convertFraction(score, quizQuestions.length); // returns a percent from our helper function eariler
 
   console.log(
-    `Thanks for playing ${name || "null"}. Your final score was ${score}/${quizQuestions.length}, percent: ${percent}%, grade: ${gradeScore(percent)}`,
+    `Thanks for playing ${name || "null"}. Your final score was ${score}/${quizQuestions.length}, percent: ${percent}%, grade: "${gradeScore(percent)}"`,
   );
 
   let userChoice = "";
   while (userChoice !== "y" && userChoice !== "n") {
+    // while loop to ask if the user would like to play again.
     userChoice = prompt("Would you like to play again? (y/n) : ")
       .trim()
       .toLowerCase();
@@ -226,6 +229,6 @@ while (true) {
     console.log(
       `Goodbye ${name || "Player"}. Thanks for playing the L&P quiz.`,
     );
-    break;
+    break; // ends loop
   }
 }
